@@ -4,7 +4,8 @@
         "illuminate/database": "^5.2",
         "illuminate/events": "^5.2",
         "vlucas/phpdotenv": "^2.3",
-        "monolog/monolog": "^1.19"
+        "monolog/monolog": "^1.19",
+        "maknz/slack": "^1.7"
     },
     "autoload": {
         "psr-4": {
