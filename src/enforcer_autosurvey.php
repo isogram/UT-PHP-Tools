@@ -20,9 +20,9 @@ $counter = 0;
 
 for ($i=0; $i < $pages; $i++) {
 
-    $this->info("***********************");
-    $this->info("PROCESSING PAGE " . ($i + 1) . " of " . $pages);
-    $this->info("***********************");
+    echo "***********************" . "\n";
+    echo "PROCESSING PAGE " . ($i + 1) . " of " . $pages . "\n";
+    echo "***********************" . "\n";
 
     $slack->to($slackTo)->send("*[$processId]* PROCESSING PAGE " . ($i + 1) . " of " . $pages);
 
@@ -39,8 +39,8 @@ for ($i=0; $i < $pages; $i++) {
         $enforcer = new Enforcer($app->apli_id, true);
         $response = $enforcer->exec();
 
-        $this->line("No. " . ($i + 1) ."-". $counter);
-        $this->line("Executing apli_id: ". $app->apli_id);
+        echo "No. " . ($i + 1) ."-". $counter . "\n";
+        echo "Executing apli_id: ". $app->apli_id . "\n";
 
         DB::table('hit_autosurvey')->insert(
             array(
@@ -55,14 +55,14 @@ for ($i=0; $i < $pages; $i++) {
 
         if ($counter == 100) {
             sleep(2);
-            $this->info("take a breath for 2 sec :)");
+            echo "take a breath for 2 sec :)" . "\n";
             $counter = 0;
         }
 
     }
 
     sleep(3);
-    $this->info("take a breath for 3 sec :)");
+    echo "take a breath for 3 sec :)" . "\n";
 
 }
 
