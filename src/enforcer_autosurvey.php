@@ -6,6 +6,11 @@ use Illuminate\Database\Capsule\Manager as DB;
 
 use App\Libs\Enforcer;
 
+// initiate slack
+$processId = time();
+$slack = new Maknz\Slack\Client(getenv('slack_url'));
+$slackTo = '@shidiq';
+
 // get first loan only
 $countApps = DB::table('application_data')->where('apli_loan_app_id', 'like', '%01')->count();
 
@@ -18,6 +23,8 @@ for ($i=0; $i < $pages; $i++) {
     $this->info("***********************");
     $this->info("PROCESSING PAGE " . ($i + 1) . " of " . $pages);
     $this->info("***********************");
+
+    $slack->to($slackTo)->send("*[$processId]* PROCESSING PAGE " . ($i + 1) . " of " . $pages);
 
     $apps = DB::table('application_data')
             ->where('apli_loan_app_id', 'like', '%01')
@@ -58,3 +65,5 @@ for ($i=0; $i < $pages; $i++) {
     $this->info("take a breath for 3 sec :)");
 
 }
+
+$slack->to($slackTo)->send("*[$processId]* DONE");
